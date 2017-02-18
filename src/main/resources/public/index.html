@@ -20,9 +20,47 @@
     <!--#parse("/velocity/todoList.vm")-->
 
 
+        Row:
+        <select name="rowFire" id="rowFire">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        Column:
+        <select name="colFire" id="colFire">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+
 
     <div class="console">
         <div id="options">
+            <h1>Instructions</h1>
+            <div class="instruction">
+                <ol id="instruction">
+                    <li> Press "New Game" button to place all 5 ships down. </li>
+                    <li> Type in coordinates you want to scan or fire (1-10).</li>
+                    <li> Scan can only be used 3 times per game.</li>
+                    <li> Scan will take a turn.</li>
+                    <li> Win = got all enemy`s ships, Lost = all ships got hit.</li>
+                </ol>
+            </div>
+            <br>
             <h1>Console</h1>
             <button id="new" onClick="window.location.reload();">New Game</button>
             <div id="place-ships">
@@ -74,18 +112,6 @@
                 </ul>
                 <button id="place" type="button" onclick="javascript:placeShip();">Place</button>
                 <button id="cancel" onclick="javascript:cancelShips();">Submit</button>
-            </div>
-            <div class="instruction">
-                <h1>Instruction</h1>
-                <span id="instruction" class="alert">
-                    <ol>
-                    <li> Press "New Game" button to place all 5 ships down. </li>
-                    <li> Type in coordinates you want to scan or fire (1-10).</li>
-                    <li> Scan can only be used 3 times per game.</li>
-                    <li> Scan will take a turn.</li>
-                    <li> Win = got all enemy`s ships, Lost = all ships got hit.</li>
-                    </ol>
-                </span>
             </div>
         </div>
         <div class="container">
@@ -216,35 +242,42 @@
                             </tr>
                         </table>
                     </div></div>
-                <!--div class="shots">
-                    <div class="hits">Hits: <span id="plyr-hits">3</span></div>
-                    <div class="misses">Misses: <span id="plyr-misses">5</span></div>
-                </div-->
             </div>
             <div class="controller">
                 <div class="messages">
-                    <h1>Messages</h1>
-                    <span id="alert" class="alert">I'm a message set as a span object. I should be easily targetable by javascript.</span>
+                    <h1>Game State</h1>
+                    <div id="gamestate">
+                        <table class="gamestate">
+                            <tr>
+                                <td></td>
+                                <th>Hits</th>
+                                <th>Misses</th>
+                            </tr>
+                            <tr>
+                                <th>Player</th>
+                                <td><span id="pc-hits">5</span></td>
+                                <td><span id="pc-misses">3</span></td>
+                            </tr>
+                            <tr>
+                                <th>CPU</th>
+                                <td><span id="cpu-hits">4</span></td>
+                                <td><span id="cpu-misses">4</span></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="controls">
                     <h1>Controls</h1>
-                    <div id="Scanboard">
-                            Row:
-                            <input type="number" name="rowScan" id="rowScan" min="1" max="10" style="width: 40px;">
-                            Column:
-                            <input type="number" name="colScan" id="colScan" min="1" max="10" style="width: 40px;">
-                    </div>
+                    <input type="number" name="Row" id="rowScan" min="1" max="10">
+                    <input type="number" name="Column" id="colScan" min="1" max="10">
                     <button id="scan" type="button" onclick="scan()">Scan</button>
-
+                    <button id="fire" type="button" onclick="fire()">Fire</button>
                     <div id="fireBoard">
                         Row:
-                        <input name="rowFire" id="rowFire" min="1" max=10" style="width: 40px;">
+                        <input name="rowFire" id="rowFire" min="1" max="10" style="width: 40px;">
                         Column:
                         <input name="colFire" id="colFire" min="1" max="10" style="width: 40px;">
                     </div>
-                    <button id="fire" type="button" onclick="fire()">Fire</button>
-
-
                 </div>
             </div>
             <div class="board cpu">
@@ -374,10 +407,6 @@
                             </tr>
                         </table>
                     </div></div>
-                <!--div class="shots">
-                    <div class="hits">Hits: <span id="cpu-hits">2</span></div>
-                    <div class="misses">Misses: <span id="cpu-misses">5</span></div>
-                </-div-->
             </div>
         </div>
     </div>

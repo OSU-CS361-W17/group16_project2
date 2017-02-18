@@ -3,16 +3,16 @@ html,
     box-sizing: border-box;
   }
 body {
-    font-family: verdana; color: #333333; font-size: 10pt;
+    font-family: verdana; color: #333333; font-size: .8em;
 }
 div {
     padding: 10px;
 }
 h1 {
-    font-size: 16pt; line-height: 10pt; text-align: center;
+    font-size: 1.5em; line-height: .5em; text-align: center;
 }
 h2 {
-font-size: 12pt; text-align: center;
+font-size: 1.1em; text-align: center;
 }
 button {
 	width: 100%;
@@ -24,7 +24,6 @@ button {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	border: none;
-	border-radius: 10px;
 	outline: none;
 }
 button:hover {background-color: #bbbbbb;}
@@ -34,7 +33,7 @@ button:hover {background-color: #bbbbbb;}
 	top: 0;
 	left: 0;
 	height: 100%;
-	width: 250px;
+	width: 15%;
 	background-color: #888888;
 	border-right: 2px solid #444444;
 	text-align: center;
@@ -42,54 +41,52 @@ button:hover {background-color: #bbbbbb;}
 #options {padding: 10px;}
 #place-ships {display: block;}
 #place-ships ul {
-	width: 185px;
+	width: 100%;
 	list-style-type: none;
 	padding: 5px 0px;
 	margin: 0px auto;
 	background-color: #aaaaaa;
-	border-radius: 5px;
 }
+
 .container {
-	position: fixed;
-	top: 150px; left: 300px;
+	position: absolute;
+	top: 15%; left: 100%;
 	width: 1300px;
+    height: 500px;
 	text-align: center;
 }
 .controller {
-	height: 450px;
-	width: 250px;
-	margin: 0 10px;
+	height: 100%;
+	width: 20%;
+	margin: 0 2%;
 	float: left;
 }
 .messages {
 	margin: 0 auto 10px auto;
-	height: 125px;
+	height: 30%;
 	text-align: left;
 	background-color: #bbbbbb;
 	border: 2px solid #444444;
-	border-radius: 10px;
 }
 .alert {float: left;}
 .controls {
-	height: 300px;
+	height: 60%;
 	background-color: #888888;
 	border: 2px solid #444444;
-	border-radius: 10px;
 }
 .board {
-	height: 450px;
-	width: 450px;
+	height: 95%;
+	width: 35%;
 	margin: 0 auto;
 	border: 2px solid #444444;
-	border-radius: 10px;
 	float: left;
 }
 .cpu {background-color: #ceb3b3;}
 .plyr {background-color: #b3ceba;}
 .grid {
 	margin: 0 auto;
-	height: 350px;
-	width: 350px;
+	height: 85%;
+	width: 85%;
 	background-color: #dddddd;
 	border: 2px dotted #888888;
 }
@@ -97,7 +94,6 @@ button:hover {background-color: #bbbbbb;}
 	width: 200px;
 	margin: 4px auto;
 	background-color: #dddddd;
-	border-radius: 10px;
 	overflow: auto;
 }
 .hits, .misses {padding: 0; font-size: 10pt;}
@@ -108,30 +104,21 @@ button:hover {background-color: #bbbbbb;}
     background-color: #dddddd;
     width: 165px;
 }
-AircraftcarrierDiv# {
+#AircraftcarrierDiv {
     padding: 0, 0;
     margin: 0, 0;
 }
 .placement {
     background-color: #dddddd;
 }
-li {
-    text-align: center;
-    border: 1px gray solid;
-}
-li:hover,
-li.focus {
-    background-color: #f7f7f7;
-    cursor: pointer;
-}
+
 label {
     cursor: pointer;
 }
 input[type="radio"]:checked+label {
      background-color: #dddddd;
      border: 3px gray solid;
-     padding-left: 20px;
-     padding-right: 20px;
+     padding: 0 20px;
 }
 input[type="radio"] {
     display: none;
@@ -143,18 +130,27 @@ input[type="radio"] {
     background-color: #dddddd;
     text-align: right;
 }
-
+.instruction {
+    background-color: #aaaaaa;
+}
+#instruction {text-align: left;}
+#instruction li {margin: 5% 0;}
+#instruction li:hover {background-color: #aaaaaa; cursor: default;}
+.gamestate {
+    width: 100%;
+    border: none;
+}
+.gamestate th, .gamestate td {border: none;}
 
 
 //////
 
 
-.gameBoard{
-/*width:100px;
-height:100px;*/
-background-color: light-gray;
+.gameBoard {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
 }
-
 
 .gameBoard td {
 width: 30px;
