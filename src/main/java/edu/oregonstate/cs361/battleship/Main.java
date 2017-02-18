@@ -27,6 +27,8 @@ public class Main {
         get("/model", (req, res) -> newModel());
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
         post("/fire/:row/:col", (req, res) -> fireAt(req));
+        //This will listen to POST requests and expects to receive a game model, as well as location to scan at
+        post("/scan/:row/:col", (req, res) -> Scan(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
     }
@@ -71,13 +73,48 @@ public class Main {
         String col = req.params("col");
         int rowInt = Integer.parseInt(row);
         int colInt = Integer.parseInt(col);
-        currModel.shootAtComputer(rowInt,colInt);
-        currModel.shootAtPlayer();
-        Gson gson = new Gson();
-        return gson.toJson(currModel);
+
+        if(rowInt > 10 || rowInt < 1 || colInt > 10 || colInt < 1){
+            // return a string to make the request fail to show error message
+            return currModel.results;
+        }else{
+            currModel.shootAtComputer(rowInt,colInt);
+            currModel.shootAtPlayer();
+            Gson gson = new Gson();
+            return gson.toJson(currModel);}
 
     }
 
+    private static String Scan(Request req) {
 
+        BattleshipModel currModel = getModelFromReq(req);
+     //   String results;
+        String row = req.params("row");
+        String col = req.params("col");
+        int rowInt = Integer.parseInt(row);
+        int colInt = Integer.parseInt(col);
+
+        if(rowInt > 10 || rowInt < 1 || colInt > 10 || colInt < 1){
+            // return a string to make the request fail to show error message
+            return currModel.results;
+        }
+        else if (currModel.scanPlayer(rowInt,colInt)){
+            currModel.results = "Yes";
+        }else if(colInt > 1 && currModel.scanPlayer(rowInt,colInt-1)){
+            currModel.results = "Yes";
+        }else if(rowInt > 1 && currModel.scanPlayer(rowInt-1,colInt)){
+            currModel.results = "Yes";
+        }else if(colInt < 10 && currModel.scanPlayer(rowInt,colInt+1)){
+            currModel.results = "Yes";
+        }else if(rowInt < 10 && currModel.scanPlayer(rowInt+1,colInt)){
+            currModel.results = "Yes";
+        }else{
+            currModel.results = "No";
+        }
+        currModel.shootAtPlayer();
+    //    return currModel.results;
+        Gson gson = new Gson();
+        return gson.toJson(currModel);
+    }
 
 }

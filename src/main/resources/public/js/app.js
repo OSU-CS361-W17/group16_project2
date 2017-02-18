@@ -1,4 +1,6 @@
 var gameModel;
+var scan_results;
+var scan_counter = 0;
 
 $( document ).ready(function() {
   // Handler for .ready() called.
@@ -8,15 +10,52 @@ $( document ).ready(function() {
    });
 });
 
+function cancelShips() {
+    div = document.getElementById('place-ships');
+    div.style.display = "none";
+}
+function scan() {
+    if (scan_counter < 3){
+    console.log($( "#rowFire" ).val());
+    console.log($( "#colFire" ).val());
+//var menuId = $( "ul.nav" ).first().attr( "id" );
+    var request = $.ajax({
+        url: "/scan/"+$( "#rowScan" ).val()+"/"+$( "#colScan" ).val(),
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+   });
+
+   request.done(function( currModel ) {
+     displayGameState(currModel);
+     gameModel = currModel;
+     scan_counter++;
+     //test purpose
+     //alert("this works")
+
+   });
+
+   request.fail(function( jqXHR, textStatus ) {
+     alert( "Request failed: Scan out of bound" /*+ textStatus */ );
+   });
+    }
+    else{
+        document.getElementById("scan").disabled = true;
+        $( document.getElementById('scan')  ).css("background-color", "black");
+    }
+//    alert("I'm an error message. I can be styled if you're interested in a small external framework. Check out SweetAlert");
+}
+
 function placeShip() {
    console.log($( "#shipSelec" ).val());
    console.log($( "#rowSelec" ).val());
    console.log($( "#colSelec" ).val());
-   console.log($( "#orientationSelec" ).val());
+   console.log($("input[name='orientationSelec']:checked").val());
 
    //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
+     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$("input[name='orientationSelec']:checked").val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -30,7 +69,7 @@ function placeShip() {
    });
 
    request.fail(function( jqXHR, textStatus ) {
-     alert( "Request failed: " + textStatus );
+     alert( "Request failed: " + textStatus  );
    });
 }
 
@@ -54,7 +93,7 @@ function fire(){
    });
 
    request.fail(function( jqXHR, textStatus ) {
-     alert( "Request failed: " + textStatus );
+     alert( "Request failed: Fire out of bound" /*+ textStatus */ );
    });
 
 }
